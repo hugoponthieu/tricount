@@ -16,16 +16,16 @@ const getDepense = (request, response) => {
     })
 };
 
-const createDepense = (request, response) => {
+/*const createDepense = (request, response) => {
     pool.query("insert into depense values (345,22.34,'Jean')", (error, results) => {
         if (error) {
             throw error
         }
         response.status(200).json(results.rows)
     })
-}
+}*/
 
 module.exports = {
     getDepense,
-    createDepense
+    /*    createDepense*/
 }

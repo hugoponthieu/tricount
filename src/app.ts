@@ -14,5 +14,5 @@ app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
 });
 
-app.get('/')
+
 app.get('/depense', db.getDepense)
