@@ -14,5 +14,7 @@ app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
 });
 
+app.use('/api', db)
 
-app.get('/depense', db.getDepense)
+
+module.exports = app;
