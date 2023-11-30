@@ -35,13 +35,17 @@ routeur.post('/', (request, response) => {
 })
 
 routeur.delete('/:id', (request, response) => {
-    console.log(request.params.id)
     pool.query('delete from depense where "id"=$1', [request.params.id], (error, results) => {
         if (error) {
             throw error
         }
         response.status(200).json(results.rows)
     })
+})
+
+routeur.put('/:id', (request, reponse) => {
+    pool.query('')
+
 })
 
 module.exports = routeur
