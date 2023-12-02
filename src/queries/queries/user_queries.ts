@@ -1,4 +1,4 @@
-import { bodyParser, pool, express } from './queries_utils';
+import { bodyParser, pool, express } from '../queries_utils';
 import { hash } from 'bcrypt';
 
 const userRouter = express.Router();
