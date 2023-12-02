@@ -10,4 +10,4 @@ const pool = new Pool({
 })
 
 const bodyParser = require('body-parser')
-export { bodyParser, pool, express }
+export { bodyParser, pool, Pool, express }

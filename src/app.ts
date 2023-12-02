@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import * as core from "express-serve-static-core";
+import { createTables } from './queries/pg/tables';
 const db = require('./queries');
 
 
@@ -11,6 +12,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
+    //createTables()
     return console.log(`Express is listening at http://localhost:${port}`);
 });
 
