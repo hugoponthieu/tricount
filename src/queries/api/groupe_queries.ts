@@ -2,7 +2,7 @@ import { bodyParser, pool, express } from '../queries_utils';
 
 const groupeRouter = express.Router();
 
-groupeRouter.user(bodyParser.json());
+groupeRouter.use(bodyParser.json());
 
 groupeRouter.get('/:id', (request, response) => {
     pool.query('select nom from groupes where id = $1', [request.params.id], (error, results) => {

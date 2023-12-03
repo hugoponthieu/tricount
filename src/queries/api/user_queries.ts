@@ -3,7 +3,7 @@ import { hash } from 'bcrypt';
 
 const userRouter = express.Router();
 
-userRouter.user(bodyParser.json());
+userRouter.use(bodyParser.json());
 
 userRouter.get('/', (request, response) => {
     pool.query('SELECT email,nom,prenom,pseudonyme FROM users;', (error, results) => {

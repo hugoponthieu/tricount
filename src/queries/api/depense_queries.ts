@@ -2,7 +2,7 @@ import { bodyParser, pool, express } from '../queries_utils';
 
 const depenseRouter = express.Router();
 
-depenseRouter.user(bodyParser.json());
+depenseRouter.use(bodyParser.json());
 
 depenseRouter.get('/:id', (request, response) => {
     pool.query('select montant,utilisateur,date from depenses where id = $1', [request.params.id], (error, results) => {

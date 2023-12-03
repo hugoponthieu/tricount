@@ -2,7 +2,7 @@ import { bodyParser, pool, express } from '../queries_utils';
 
 const remboursementRouter = express.Router();
 
-remboursementRouter.user(bodyParser.json());
+remboursementRouter.use(bodyParser.json());
 
 remboursementRouter.get('/:id', (request, response) => {
     pool.query('select utilisateur part idgroupe from remboursements id = $1', [request.params.id], (error, results) => {

@@ -2,7 +2,7 @@ import { bodyParser, pool, express } from '../queries_utils';
 
 const membreRouter = express.Router();
 
-membreRouter.user(bodyParser.json());
+membreRouter.use(bodyParser.json());
 
 membreRouter.get('/:id', (request, response) => {
     pool.query('select email from membres where idgroupe = $1', [request.params.id], (error, results) => {
