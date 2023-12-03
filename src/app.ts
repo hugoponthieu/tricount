@@ -17,7 +17,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-    createTables()
+    //createTables()
     return console.log(`Express is listening at http://localhost:${port}`);
 });
 
