@@ -24,7 +24,7 @@ CREATE TABLE depenses (
     idgroupe int,
     montant float NOT NULL,
     utilisateur varchar(50) NOT NULL,
-    description varchar(20),
+    description varchar(80),
     date DATE,
     FOREIGN KEY (utilisateur) REFERENCES users(email),
     FOREIGN KEY (id) REFERENCES groupes(id));

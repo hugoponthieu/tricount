@@ -26,6 +26,6 @@ app.use('/user', userRouter);
 app.use('/groupe', groupeRouter);
 app.use('/membre', membreRouter);
 app.use('/remboursement', remboursementRouter);
-app.use('depense', depenseRouter);
+app.use('/depense', depenseRouter);
 
 module.exports = app;
