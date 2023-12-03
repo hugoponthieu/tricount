@@ -19,10 +19,12 @@ CREATE TABLE groupes (
 
 CREATE TABLE depenses (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
+    idgroupe int,
     montant float NOT NULL,
     utilisateur varchar(50) NOT NULL,
     date DATE,
-    FOREIGN KEY (utilisateur) REFERENCES users(email));
+    FOREIGN KEY (utilisateur) REFERENCES users(email),
+    FOREIGN KEY (id) REFERENCES groupes(id));
 
 CREATE TABLE remboursements (
     iddepense int,
