@@ -22,6 +22,18 @@ remboursementRouter.get('/ofgroup/:id', (request, response) => {
     })
 })
 
+remboursementRouter.get('/ofgroup/ofuser/:id', (request, response) => {
+    const { email } = request.body;
+    pool.query('select part,iddepense from remboursements where idgroupe = $1 and utilisateur=$2', [request.params.id, email], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.rows)
+    })
+})
+
+
+
 remboursementRouter.post('/', (request, response) => {
     const { iddepense, idgroupe, utilisateur, part } = request.body
     pool.query('insert into remboursements (iddepense, idgroupe, utilisateur, part) values ($1,$2,$3,$4)', [iddepense, idgroupe, utilisateur, part], (error, results) => {

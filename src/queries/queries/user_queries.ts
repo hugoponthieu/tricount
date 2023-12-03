@@ -14,7 +14,7 @@ userRouter.get('/', (request, response) => {
     })
 })
 
-userRouter.post('/', (request, response) => {
+userRouter.post('/signup', (request, response) => {
     const { email, nom, prenom, pwd } = request.body;
     hash(pwd, 10).then(pool.query('insert into users values ($1,$2,$3,$4)', [email, nom, prenom, pwd], (error, results) => {
         if (error) {
@@ -22,6 +22,16 @@ userRouter.post('/', (request, response) => {
         }
         response.status(200).json(results.rows)
     }))
+})
+
+userRouter.get('/login/:email', (request, response) => {
+    const { pwd } = request.body;
+    pool.query('select nom,prenom,pseudonyme from user where "email"=$1', [request.params.email], (error, results) => {
+        if (error) {
+            throw error
+        }
+        response.status(200).json(results.row)
+    })
 })
 
 userRouter.delete('/:email', (request, response) => {

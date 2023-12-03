@@ -27,9 +27,9 @@ depenseRouter.post('/', (request, response) => {
 
 //update à vérifier
 
-depenseRouter.put('/', (request, response) => {
-    const { description, montant, utilisateur, date, idgroupe } = request.body
-    pool.query('insert into depenses (description,montant,utilisateur,date,idgroupe )', [description, montant, utilisateur, date, idgroupe], (error, results) => {
+depenseRouter.put('/:id', (request, response) => {
+    const { montant } = request.body
+    pool.query('update from depense set montant =$1 ', [montant], (error, results) => {
         if (error) {
             throw error
         }
