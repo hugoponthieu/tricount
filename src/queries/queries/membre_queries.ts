@@ -27,7 +27,7 @@ membreRouter.post('/', (request, response) => {
 
 membreRouter.delete('/:id', (request, response) => {
     const { utilisateur } = request.body
-    pool.query('delete from depense where idgroupe=$1 and utilisateur=$2)', [request.params.id, utilisateur], (error, results) => {
+    pool.query('delete from membre where idgroupe=$1 and utilisateur=$2)', [request.params.id, utilisateur], (error, results) => {
         if (error) {
             throw error
         }
