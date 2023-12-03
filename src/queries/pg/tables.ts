@@ -9,8 +9,10 @@ DROP TABLE IF EXISTS groupes;
 
 CREATE TABLE users (
     email varchar(50) PRIMARY KEY NOT NULL UNIQUE,
-    nom varchar(30),prenom varchar(30),
-    pseudonyme varchar(30),pwd varchar(200));
+    nom varchar(30),
+    prenom varchar(30),
+    pseudonyme varchar(30),
+    pwd varchar(200));
 
 CREATE TABLE groupes (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,

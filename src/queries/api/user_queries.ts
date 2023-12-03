@@ -14,14 +14,17 @@ userRouter.get('/', (request, response) => {
     })
 })
 
-userRouter.post('/signup', (request, response) => {
-    const { email, nom, prenom, pwd } = request.body;
-    hash(pwd, 10).then(pool.query('insert into users values ($1,$2,$3,$4)', [email, nom, prenom, pwd], (error, results) => {
-        if (error) {
-            throw error
-        }
-        response.status(200).json(results.rows)
-    }))
+userRouter.post('/signup/', (request, response) => {
+    const { email, nom, prenom, pseudonyme, pwd } = request.body;
+    console.log(pwd);
+    hash(pwd, 10).then((hash) => {
+        pool.query('insert into users ( email, nom, prenom,pseudonyme, pwd)values ($1,$2,$3,$4,$5)', [email, nom, prenom, pseudonyme, hash], (error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).json(results.rows)
+        })
+    })
 })
 
 userRouter.get('/login/:email', (request, response) => {
@@ -34,6 +37,7 @@ userRouter.get('/login/:email', (request, response) => {
     })
 })
 
+//a finir
 userRouter.delete('/:email', (request, response) => {
     pool.query('delete from depense where "email" =$1', [request.params.email], (error, results) => {
         if (error) {
@@ -44,7 +48,8 @@ userRouter.delete('/:email', (request, response) => {
 })
 
 userRouter.get('/:email', (request, response) => {
-    pool.query('select nom,prenom,pseudonyme from user where "email"=$1', [request.params.email], (error, results) => {
+    console.log(request.params.email);
+    pool.query('select nom,prenom,pseudonyme from users where "email"="$1"', [request.params.email], (error, results) => {
         if (error) {
             throw error
         }
