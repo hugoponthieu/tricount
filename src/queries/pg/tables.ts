@@ -27,17 +27,17 @@ CREATE TABLE depenses (
     description varchar(80),
     date DATE,
     FOREIGN KEY (utilisateur) REFERENCES users(email),
-    FOREIGN KEY (id) REFERENCES groupes(id));
+    FOREIGN KEY (idgroupe) REFERENCES groupes(id));
 
 CREATE TABLE remboursements (
     iddepense int,
+    idgroupe int,
     utilisateur varchar(50),
     part float,
-    idgroupe int,
     FOREIGN KEY (utilisateur) REFERENCES users(email),
     FOREIGN KEY (iddepense) REFERENCES depenses(id),
     FOREIGN KEY (idgroupe) REFERENCES groupes(id),
-    PRIMARY KEY (iddepense,idgroupe));
+    PRIMARY KEY (iddepense,idgroupe,utilisateur));
 
 
 CREATE TABLE membres (

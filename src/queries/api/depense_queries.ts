@@ -5,14 +5,25 @@ const depenseRouter = express.Router();
 depenseRouter.use(bodyParser.json());
 
 depenseRouter.get('/:id', (request, response) => {
-    pool.query('select description,montant,utilisateur,date from depenses where id = $1', [request.params.id], (error, results) => {
+    pool.query('select description,montant,utilisateur,date,idgroupe from depenses where id = $1;', [request.params.id], (error, results) => {
         if (error) {
             throw error
         }
         response.status(200).json(results.rows)
 
     })
+
+    depenseRouter.get('/', (request, response) => {
+        pool.query('select * from depenses;', (error, results) => {
+            if (error) {
+                throw error
+            }
+            response.status(200).json(results.rows)
+
+        })
+    })
 })
+
 
 depenseRouter.post('/', (request, response) => {
     const { description, montant, utilisateur, date, idgroupe } = request.body
@@ -27,7 +38,7 @@ depenseRouter.post('/', (request, response) => {
 
 depenseRouter.put('/:id', (request, response) => {
     const { montant, description, utilisateur } = request.body
-    pool.query('update depenses set montant =$1, description=$2,utilisateur=$3 where id=$4', [montant, description, utilisateur, request.params.id], (error, results) => {
+    pool.query('update depenses set montant =$1, description=$2,utilisateur=$3 where id=$4;', [montant, description, utilisateur, request.params.id], (error, results) => {
         if (error) {
             throw error
         }
@@ -39,7 +50,7 @@ depenseRouter.put('/:id', (request, response) => {
 
 depenseRouter.delete('/:id', (request, response) => {
     const { utilisateur } = request.body
-    pool.query('delete from depense where idgroupe=$1 and utilisateur=$2)', [request.params.id, utilisateur], (error, results) => {
+    pool.query('delete from depenses where idgroupe=$1 and utilisateur=$2;', [request.params.id, utilisateur], (error, results) => {
         if (error) {
             throw error
         }

@@ -4,8 +4,8 @@ const remboursementRouter = express.Router();
 
 remboursementRouter.use(bodyParser.json());
 
-remboursementRouter.get('/:id', (request, response) => {
-    pool.query('select utilisateur part idgroupe from remboursements id = $1;', [request.params.id], (error, results) => {
+remboursementRouter.get('/', (request, response) => {
+    pool.query('select utilisateur,part,idgroupe from remboursements;', (error, results) => {
         if (error) {
             throw error
         }
@@ -45,8 +45,8 @@ remboursementRouter.post('/', (request, response) => {
 })
 
 remboursementRouter.delete('/:id', (request, response) => {
-    const { depense } = request.body
-    pool.query('delete from remboursements where iddepense=$1 and idgroupe=$2;', [depense, request.params.id], (error, results) => {
+    const { iddepense } = request.body
+    pool.query('delete from remboursements where iddepense=$1 and idgroupe=$2;', [iddepense, request.params.id], (error, results) => {
         if (error) {
             throw error
         }
@@ -56,8 +56,8 @@ remboursementRouter.delete('/:id', (request, response) => {
 
 
 remboursementRouter.put('/:id', (request, response) => {
-    const { depense } = request.body
-    pool.query('update remboursements set part = $1 where iddepense=$1 and idgroupe=$2;', [depense, request.params.id], (error, results) => {
+    const { part, iddepense } = request.body
+    pool.query('update remboursements set part = $1 where iddepense=$2 and idgroupe=$3;', [part, iddepense, request.params.id], (error, results) => {
         if (error) {
             throw error
         }
