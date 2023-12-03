@@ -48,4 +48,3 @@ routeur.put('/:id', (request, reponse) => {
 
 })
 
-module.exports = routeur

@@ -9,8 +9,10 @@ DROP TABLE IF EXISTS groupes;
 
 CREATE TABLE users (
     email varchar(50) PRIMARY KEY NOT NULL UNIQUE,
-    nom varchar(30),prenom varchar(30),
-    pseudonyme varchar(30),pwd varchar(200));
+    nom varchar(30),
+    prenom varchar(30),
+    pseudonyme varchar(30),
+    pwd varchar(200));
 
 CREATE TABLE groupes (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
@@ -19,20 +21,23 @@ CREATE TABLE groupes (
 
 CREATE TABLE depenses (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,
+    idgroupe int,
     montant float NOT NULL,
     utilisateur varchar(50) NOT NULL,
+    description varchar(80),
     date DATE,
-    FOREIGN KEY (utilisateur) REFERENCES users(email));
+    FOREIGN KEY (utilisateur) REFERENCES users(email),
+    FOREIGN KEY (idgroupe) REFERENCES groupes(id));
 
 CREATE TABLE remboursements (
     iddepense int,
+    idgroupe int,
     utilisateur varchar(50),
     part float,
-    idgroupe int,
     FOREIGN KEY (utilisateur) REFERENCES users(email),
     FOREIGN KEY (iddepense) REFERENCES depenses(id),
     FOREIGN KEY (idgroupe) REFERENCES groupes(id),
-    PRIMARY KEY (iddepense,utilisateur));
+    PRIMARY KEY (iddepense,idgroupe,utilisateur));
 
 
 CREATE TABLE membres (
