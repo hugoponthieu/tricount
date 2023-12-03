@@ -44,3 +44,4 @@ groupeRouter.delete('/:id', (request, response) => {
 
     })
 })
+export { groupeRouter };

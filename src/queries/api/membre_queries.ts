@@ -36,3 +36,5 @@ membreRouter.delete('/:id', (request, response) => {
     })
 })
 
+
+export { membreRouter };

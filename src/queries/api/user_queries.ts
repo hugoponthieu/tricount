@@ -52,3 +52,4 @@ userRouter.get('/:email', (request, response) => {
     })
 })
 
+export { userRouter };

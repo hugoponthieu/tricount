@@ -25,8 +25,6 @@ depenseRouter.post('/', (request, response) => {
     })
 })
 
-//update à vérifier
-
 depenseRouter.put('/:id', (request, response) => {
     const { montant } = request.body
     pool.query('update from depense set montant =$1 ', [montant], (error, results) => {
@@ -52,3 +50,4 @@ depenseRouter.delete('/:id', (request, response) => {
 
 
 
+export { depenseRouter };
