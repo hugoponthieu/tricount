@@ -35,7 +35,7 @@ CREATE TABLE remboursements (
     FOREIGN KEY (utilisateur) REFERENCES users(email),
     FOREIGN KEY (iddepense) REFERENCES depenses(id),
     FOREIGN KEY (idgroupe) REFERENCES groupes(id),
-    PRIMARY KEY (iddepense,utilisateur));
+    PRIMARY KEY (iddepense,idgroupe));
 
 
 CREATE TABLE membres (
