@@ -12,7 +12,7 @@ CREATE TABLE users (
     nom varchar(30),
     prenom varchar(30),
     pseudonyme varchar(30),
-    pwd varchar(200));
+    pwd varchar(200) NOT NULL);
 
 CREATE TABLE groupes (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY NOT NULL UNIQUE,

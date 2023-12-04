@@ -1,5 +1,5 @@
 import { bodyParser, pool, express } from '../queries_utils';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 
 const userRouter = express.Router();
 
@@ -7,6 +7,7 @@ userRouter.use(bodyParser.json());
 
 userRouter.get('/', (request, response) => {
     pool.query('SELECT email,nom,prenom,pseudonyme FROM users;', (error, results) => {
+
         if (error) {
             throw error
         }
@@ -26,18 +27,36 @@ userRouter.post('/signup/', (request, response) => {
         })
     })
 })
-//a finir
+
 userRouter.get('/login/:email', (request, response) => {
     const { pwd } = request.body;
-    pool.query('select nom,prenom,pseudonyme from users where "email"=$1', [request.params.email], (error, results) => {
+
+    pool.query('select pwd from users where "email"=$1', [request.params.email], (error, results) => {
+
         if (error) {
-            throw error
+            console.log(error)
+            response.status(500).json({ message: "Paire login/pwd incorrect" });
         }
-        response.status(200).json(results.row)
+        else if (results.rowCount == 1) {
+            compare(pwd, results.rows[0].pwd, (error, results) => {
+                if (!results) {
+                    response.status(401).json({ message: "Paire login/pwd incorrect" })
+                }
+                else {
+                    response.status(200).json({ message: "Connecté" })
+                }
+
+            })
+        }
+        else {
+            response.status(401).json({ message: "Paire login/pwd incorrect" })
+        }
+
+
     })
 })
 
-//a finir
+
 userRouter.delete('/:email', (request, response) => {
     pool.query('delete from users where email =$1;', [request.params.email], (error, results) => {
         if (error) {
