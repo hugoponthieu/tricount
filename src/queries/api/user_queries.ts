@@ -28,8 +28,9 @@ userRouter.post('/signup/', (request, response) => {
     })
 })
 
-userRouter.get('/login/:email', (request, response) => {
+userRouter.post('/login/:email', (request, response) => {
     const { pwd } = request.body;
+
 
     pool.query('select pwd from users where "email"=$1', [request.params.email], (error, results) => {
 
