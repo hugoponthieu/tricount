@@ -63,7 +63,7 @@ INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,
 
 `
 
-// s
+// select sum(d.montant*r.part) as total , d.utilisateur, r.utilisateur as emprunteur from depenses d join remboursements r on r.iddepense = d.id where d.idgroupe = 1 group by d.utilisateur ,r.utilisateur 
 
 async function createTables() {
     await pool.query(query, (error, results) => {
