@@ -60,10 +60,12 @@ INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('ba
 INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'hugo.ponthieu@gmail.com',0.5);
 INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'hugo.ponthieu@gmail.com',0.5);
 INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'hugo.ponthieu@gmail.com',0.5);
-
+INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'manon.dupouy@gmail.com',0.5);
+INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'manon.dupouy@gmail.com',0.5);
+INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'manon.dupouy@gmail.com',0.5);
 `
 
-// select sum(d.montant*r.part) as total , d.utilisateur, r.utilisateur as emprunteur from depenses d join remboursements r on r.iddepense = d.id where d.idgroupe = 1 group by d.utilisateur ,r.utilisateur 
+// select sum(d.montant*r.part) as total , d.utilisateur, r.utilisateur as emprunteur from depenses d join remboursements r on r.iddepense = d.id where d.idgroupe = 1  and not d.utilisateur = r.utilisateur group by d.utilisateur ,r.utilisateur 
 
 async function createTables() {
     await pool.query(query, (error, results) => {
