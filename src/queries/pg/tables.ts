@@ -53,13 +53,17 @@ INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('hugo.ponthieu@gm
 INSERT INTO groupes (nom) VALUES ('Croissons');
 INSERT INTO groupes (nom) VALUES ('Pain au chocolat');
 INSERT INTO membres (idgroupe,utilisateur) values (1,'manon.dupouy@gmail.com');
+INSERT INTO membres (idgroupe,utilisateur) values (1,'hugo.ponthieu@gmail.com');
 INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('baguette',34.50,'manon.dupouy@gmail.com','2023/12/12',1);
 INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('carotte',34.50,'manon.dupouy@gmail.com','2023/12/12',1);
 INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('banane',34.50,'manon.dupouy@gmail.com','2023/12/12',1);
-INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'hugo.ponthieu@gmail.com',1);
+INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'hugo.ponthieu@gmail.com',0.5);
+INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'hugo.ponthieu@gmail.com',0.5);
+INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'hugo.ponthieu@gmail.com',0.5);
+
 `
 
-
+// s
 
 async function createTables() {
     await pool.query(query, (error, results) => {
