@@ -7,6 +7,7 @@ import { groupeRouter } from './queries/api/groupe_queries'
 import { membreRouter } from './queries/api/membre_queries';
 import { remboursementRouter } from './queries/api/remboursement_queries';
 import { depenseRouter } from './queries/api/depense_queries';
+const cookieParser =require('cookie-parser');
 const cors = require('cors')
 
 
@@ -23,8 +24,8 @@ app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
 });
 
-
-app.use('/user', cors(), userRouter);
+app.use(cookieParser());
+app.use('/user', userRouter);
 app.use('/groupe', groupeRouter);
 app.use('/membre', membreRouter);
 app.use('/remboursement', remboursementRouter);
