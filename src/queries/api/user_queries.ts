@@ -1,14 +1,14 @@
 import { bodyParser, pool, express } from '../queries_utils';
 import { hash, compare } from 'bcrypt';
-const jwt=require('jsonwebtoken')
+const jwt=require('jsonwebtoken');
+import {authorization} from '../auth'
+import { request, response } from 'express';
 
 const userRouter = express.Router();
 
 userRouter.use(bodyParser.json());
 
-userRouter.get('/', (request, response) => {
-    console.log("#######################################")    
-    console.log(request.headers);
+userRouter.get('/',authorization, (request, response) => {
     pool.query('SELECT email,nom,prenom,pseudonyme FROM users;', (error, results) => {
 
         if (error) {
@@ -17,6 +17,9 @@ userRouter.get('/', (request, response) => {
         response.status(200).json(results.rows)
     })
 })
+
+userRouter.get('/auth',(request,response)=>{response.status(200)}
+)
 
 userRouter.post('/signup/', (request, response) => {
     const { email, nom, prenom, pseudonyme, pwd } = request.body;
