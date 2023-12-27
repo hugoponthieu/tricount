@@ -18,7 +18,7 @@ userRouter.get('/',authorization, (request, response) => {
     })
 })
 
-userRouter.get('/auth',(request,response)=>{response.status(200)}
+userRouter.get('/auth',authorization,(request,response)=>{ response.status(200).json({ message: "Connecté" })}
 )
 
 userRouter.post('/signup/', (request, response) => {
@@ -38,7 +38,7 @@ userRouter.post('/login/:email', (request, response) => {
     const { pwd } = request.body;
     const token = jwt.sign({id:request.params.email},"UNBROCABLE_KEY");
 
-
+    console.log(request.body)
     pool.query('select pwd from users where "email"=$1', [request.params.email], (error, results) => {
 
         if (error) {
@@ -51,7 +51,7 @@ userRouter.post('/login/:email', (request, response) => {
                     response.status(401).json({ message: "Paire login/pwd incorrect" })
                 }
                 else {
-                    response.status(200).cookie("access_token",token,{httpOnly:true}).json({ message: "Connecté" })
+                    response.status(200).cookie("access_token",token,{HttpOnly: true, Path:"/",domain: "localhost",expire : 24 * 60 * 60 * 1000,SameSite: null}).json({ message: "Connecté" })
                 }
 
             })
