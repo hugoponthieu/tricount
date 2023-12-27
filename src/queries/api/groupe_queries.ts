@@ -1,3 +1,4 @@
+import { authorization } from '../auth';
 import { bodyParser, pool, express } from '../queries_utils';
 
 const groupeRouter = express.Router();
@@ -14,7 +15,7 @@ groupeRouter.get('/:id', (request, response) => {
     })
 })
 
-groupeRouter.get('/', (request, response) => {
+groupeRouter.get('/',(request, response) => {
     pool.query('select * from groupes', (error, results) => {
         if (error) {
             throw error

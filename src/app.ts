@@ -13,7 +13,11 @@ const cors = require('cors')
 
 const app: core.Express = express();
 const port: number = 3000;
-app.use(cors())
+var corsOptions = {
+    origin: "http://localhost:8080",
+    credentials: true
+  }
+app.use(cors(corsOptions))
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello World!');
