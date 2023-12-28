@@ -1,10 +1,11 @@
+import { authorization } from '../auth';
 import { bodyParser, pool, express } from '../queries_utils';
 
 const depenseRouter = express.Router();
 
 depenseRouter.use(bodyParser.json());
 
-depenseRouter.get('/:id', (request, response) => {
+depenseRouter.get('/:id',authorization, (request, response) => {
     pool.query('select description,montant,utilisateur,date,idgroupe from depenses where idgroupe = $1;', [request.params.id], (error, results) => {
         if (error) {
             throw error

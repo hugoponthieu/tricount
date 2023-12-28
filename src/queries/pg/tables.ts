@@ -2,7 +2,7 @@ const { pool } = require("../queries_utils");
 import { hash } from 'bcrypt';
 var pwd;
 
-// select sum(d.montant*r.part) as total , d.utilisateur, r.utilisateur as emprunteur from depenses d join remboursements r on r.iddepense = d.id where d.idgroupe = 1  and not d.utilisateur = r.utilisateur group by d.utilisateur ,r.utilisateur 
+ 
 function query(pwd:string){
     return `
     DROP TABLE IF EXISTS remboursements; 
