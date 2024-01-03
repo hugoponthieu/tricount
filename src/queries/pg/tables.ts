@@ -54,14 +54,17 @@ function query(pwd:string){
     
     INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('manon.dupouy@gmail.com','Dupouy','Manon','Manonette','${pwd}');
     INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('hugo.ponthieu@gmail.com','Ponthieu','Hugo','Huguette','${pwd}');
+    INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('mafam@gmail.com','ma','fam','maf','${pwd}');
     INSERT INTO groupes (nom) VALUES ('voyage');
     INSERT INTO groupes (nom) VALUES ('coloc');
     INSERT INTO membres (idgroupe,utilisateur) values (1,'manon.dupouy@gmail.com');
     INSERT INTO membres (idgroupe,utilisateur) values (1,'hugo.ponthieu@gmail.com');
+    INSERT INTO membres (idgroupe,utilisateur) values (1,'mafam@gmail.com');
     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('baguette',34.50,'manon.dupouy@gmail.com','2023/12/12',1);
     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('carotte',34.50,'manon.dupouy@gmail.com','2023/12/12',1);
     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('banane',34.50,'manon.dupouy@gmail.com','2023/12/12',1);
     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'hugo.ponthieu@gmail.com',0.5);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'mafam@gmail.com',0.5);
     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'hugo.ponthieu@gmail.com',0.5);
     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'hugo.ponthieu@gmail.com',0.5);
     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'manon.dupouy@gmail.com',0.5);
