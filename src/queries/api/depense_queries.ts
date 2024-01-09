@@ -27,12 +27,13 @@ depenseRouter.get('/:id',authorization, (request, response) => {
 
 
 depenseRouter.post('/', (request, response) => {
-    const { description, montant, utilisateur, date, idgroupe } = request.body
-    pool.query('insert into depenses (description,montant,utilisateur,date,idgroupe) values ($1,$2,$3,$4,$5);', [description, montant, utilisateur, date, idgroupe], (error, results) => {
+    const { description, montant, utilisateur, idgroupe } = request.body
+    const dateToday: Date= new Date(2012, 1, 31);
+    pool.query('insert into depenses (description,montant,utilisateur,idgroupe,date) values ($1,$2,$3,$4,$5) returning id;', [description, montant, utilisateur, idgroupe,dateToday], (error, results) => {
         if (error) {
-            throw error
+            console.log(error);
         }
-        response.status(200).json(results.rows)
+        response.status(200).json(results.rows[0])
 
     })
 })
@@ -48,7 +49,6 @@ depenseRouter.put('/:id', (request, response) => {
     })
 })
 
-
 depenseRouter.delete('/:id', (request, response) => {
     const { utilisateur } = request.body
     pool.query('delete from depenses where idgroupe=$1 and utilisateur=$2;', [request.params.id, utilisateur], (error, results) => {
@@ -59,7 +59,5 @@ depenseRouter.delete('/:id', (request, response) => {
 
     })
 })
-
-
 
 export { depenseRouter };

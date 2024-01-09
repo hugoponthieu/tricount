@@ -34,19 +34,19 @@ userRouter.post('/signup/', (request, response) => {
     })
 })
 
-userRouter.post('/login/:email', (request, response) => {
+userRouter.post('/login/:email', async (request, response) => {
     const { pwd } = request.body;
     const token = jwt.sign({id:request.params.email},"UNBROCABLE_KEY");
 
     console.log(request.body)
-    pool.query('select pwd from users where "email"=$1', [request.params.email], (error, results) => {
+    await pool.query('select pwd from users where "email"=$1', [request.params.email], async (error, results) => {
 
         if (error) {
             console.log(error)
             response.status(500).json({ message: "Paire login/pwd incorrect1" });
         }
         else if (results.rowCount == 1) {
-            compare(pwd, results.rows[0].pwd, (error, results) => {
+            await compare(pwd, results.rows[0].pwd, (error, results) => {
                 if (!results) {
                     response.status(401).json({ message: "Paire login/pwd incorrect" })
                 }
