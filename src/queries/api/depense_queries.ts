@@ -51,7 +51,7 @@ depenseRouter.put('/:id', (request, response) => {
 
 depenseRouter.delete('/:id', (request, response) => {
     const { utilisateur } = request.body
-    pool.query('delete from depenses where idgroupe=$1 and utilisateur=$2;', [request.params.id, utilisateur], (error, results) => {
+    pool.query('delete from depenses where id=$1;', [request.params.id], (error, results) => {
         if (error) {
             throw error
         }
