@@ -6,7 +6,7 @@ const remboursementRouter = express.Router();
 remboursementRouter.use(bodyParser.json());
 
 remboursementRouter.get('/', (request, response) => {
-    pool.query('select utilisateur,part,idgroupe from remboursements;', (error, results) => {
+    pool.query('select * from remboursements;', (error, results) => {
         if (error) {
             throw error
         }
