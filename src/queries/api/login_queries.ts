@@ -42,7 +42,7 @@ accessRouter.post('/signup/', (request, response) => {
     hash(pwd, 10).then((hash) => {
         pool.query('insert into users ( email, nom, prenom,pseudonyme, pwd) values ($1,$2,$3,$4,$5)', [email, nom, prenom, pseudonyme, hash], (error, results) => {
             if (error) {
-                throw error
+                response.status(401).json({message: error})
             }
             response.status(200).json(results.rows)
         })
