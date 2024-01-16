@@ -1,4 +1,3 @@
-import { request, response } from 'express';
 import { bodyParser, pool, express } from '../queries_utils';
 
 const remboursementRouter = express.Router();
@@ -74,5 +73,4 @@ remboursementRouter.get('/detail/:id',(request,response)=>{
         response.status(200).json(results.rows);
     })
 })
-// "select sum(d.montant*r.part) as total , d.utilisateur, r.utilisateur as emprunteur from depenses d join remboursements r on r.iddepense = d.id where d.idgroupe = $1  and not d.utilisateur = r.utilisateur group by d.utilisateur ,r.utilisateur"
 export { remboursementRouter };

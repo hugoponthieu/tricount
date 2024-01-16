@@ -7,7 +7,8 @@ import { groupeRouter } from './queries/api/groupe_queries'
 import { membreRouter } from './queries/api/membre_queries';
 import { remboursementRouter } from './queries/api/remboursement_queries';
 import { depenseRouter } from './queries/api/depense_queries';
-import {authorization} from './queries/auth'
+import { authorization } from './queries/auth'
+import { accessRouter } from './queries/api/login_queries';
 const cookieParser =require('cookie-parser');
 const cors = require('cors')
 require('dotenv').config()
@@ -36,11 +37,12 @@ app.listen(port, async () => {
 });
 
 app.use(cookieParser());
+app.use('/access', accessRouter)
 app.use('/user',authorization, userRouter);
-app.use('/groupe', groupeRouter);
-app.use('/membre', membreRouter);
-app.use('/remboursement', remboursementRouter);
-app.use('/depense', depenseRouter);
+app.use('/groupe',authorization, groupeRouter);
+app.use('/membre',authorization, membreRouter);
+app.use('/remboursement',authorization, remboursementRouter);
+app.use('/depense',authorization, depenseRouter);
 
 module.exports = app;
 
