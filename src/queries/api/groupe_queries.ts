@@ -7,7 +7,7 @@ groupeRouter.use(bodyParser.json());
 groupeRouter.get('/:id', (request, response) => {
     pool.query('select nom from groupes where id = $1', [request.params.id], (error, results) => {
         if (error) {
-            throw error
+            response.status(400).json({message: error})
         }
         response.status(200).json(results.rows)
 
@@ -17,7 +17,7 @@ groupeRouter.get('/:id', (request, response) => {
 groupeRouter.get('/',(request, response) => {
     pool.query('select * from groupes', (error, results) => {
         if (error) {
-            throw error
+            response.status(400).json({message: error})
         }
         response.status(200).json(results.rows)
 
@@ -26,13 +26,11 @@ groupeRouter.get('/',(request, response) => {
 
 groupeRouter.post('/', (request, response) => {
     const { nom } = request.body
-    console.log("test")
-    console.log(nom);
     pool.query('insert into groupes (nom) values ($1) returning id', [nom], (error, results) => {
         if (error) {
-            throw error
+            response.status(400).json({message: error})
         }
-        response.status(200).json(results.rows)
+        response.status(201).json(results.rows)
 
     })
 })
@@ -40,7 +38,7 @@ groupeRouter.post('/', (request, response) => {
 groupeRouter.delete('/:id', (request, response) => {
     pool.query('delete from groupes where id=$1 ', [request.params.id], (error, results) => {
         if (error) {
-            throw error
+            response.status(400).json({message: error})
         }
         response.status(200).json(results.rows)
 
