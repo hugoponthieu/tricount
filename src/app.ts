@@ -7,29 +7,36 @@ import { groupeRouter } from './queries/api/groupe_queries'
 import { membreRouter } from './queries/api/membre_queries';
 import { remboursementRouter } from './queries/api/remboursement_queries';
 import { depenseRouter } from './queries/api/depense_queries';
+import {authorization} from './queries/auth'
 const cookieParser =require('cookie-parser');
 const cors = require('cors')
+require('dotenv').config()
 
 
 const app: core.Express = express();
 const port: number = 3000;
-var corsOptions = {
-    origin: "http://localhost:8080",
+ let corsOptions = {
+    origin: true,
     credentials: true
-  }
+   }
 app.use(cors(corsOptions))
 
 app.get('/', (req: Request, res: Response) => {
     res.status(200).send('Hello World!');
 });
 
-app.listen(port, () => {
-    //createTables()
-    return console.log(`Express is listening at http://localhost:${port}`);
+app.listen(port, async () => {
+    try {
+        await createTables()
+    } catch (error) {
+        console.error('Failed initializing database', error.stack)
+        throw error;
+    }
+    console.log(`Express is listening at http://localhost:${port}`);
 });
 
 app.use(cookieParser());
-app.use('/user', userRouter);
+app.use('/user',authorization, userRouter);
 app.use('/groupe', groupeRouter);
 app.use('/membre', membreRouter);
 app.use('/remboursement', remboursementRouter);

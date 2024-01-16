@@ -1,9 +1,15 @@
 const { pool } = require("../queries_utils");
 import { hash } from 'bcrypt';
-var pwd;
+let pwd;
 
- 
-function query(pwd:string){
+/**
+ * Checks if we need to run schema initialisation
+ */
+// async function needsMigration(): Promise<boolean> {
+    
+// }
+
+function initSchemaQuery(pwd:string){
     return `
     DROP TABLE IF EXISTS remboursements; 
     DROP TABLE IF EXISTS depenses;
@@ -77,7 +83,7 @@ function query(pwd:string){
 //     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'manon.dupouy@gmail.com',0.5); 
  }
 async function createTables() {
-    const q=query(await hash("azer123",10).then((hash)=>pwd=hash));
+    const q = initSchemaQuery(await hash("azer123",10).then((hash)=>pwd=hash));
     await pool.query(q, (error, results) => {
         if (error) {
             throw error;

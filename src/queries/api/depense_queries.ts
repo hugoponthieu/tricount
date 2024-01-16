@@ -1,11 +1,10 @@
-import { authorization } from '../auth';
 import { bodyParser, pool, express } from '../queries_utils';
 
 const depenseRouter = express.Router();
 
 depenseRouter.use(bodyParser.json());
 
-depenseRouter.get('/:id',authorization, (request, response) => {
+depenseRouter.get('/:id', (request, response) => {
     pool.query('select description,montant,utilisateur,date,idgroupe from depenses where idgroupe = $1;', [request.params.id], (error, results) => {
         if (error) {
             throw error
@@ -50,7 +49,7 @@ depenseRouter.put('/:id', (request, response) => {
 })
 
 depenseRouter.delete('/:id', (request, response) => {
-    const { utilisateur } = request.body
+    //const { utilisateur } = request.body
     pool.query('delete from depenses where id=$1;', [request.params.id], (error, results) => {
         if (error) {
             throw error
