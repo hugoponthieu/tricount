@@ -2,6 +2,7 @@ name: My workflow
 
 on:
   push:
+    branches: main
 
 jobs:
   build:
