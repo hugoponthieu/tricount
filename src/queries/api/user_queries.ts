@@ -21,6 +21,8 @@ userRouter.get('/',authorization, (request, response) => {
 userRouter.get('/auth',authorization,(request,response)=>{ response.status(200).json({ message: "Connecté" })}
 )
 
+userRouter.get('/current',(request,response)=>{response.status(200).json({user:request.userId})})
+
 userRouter.post('/signup/', (request, response) => {
     const { email, nom, prenom, pseudonyme, pwd } = request.body;
     console.log(pwd);
@@ -46,7 +48,7 @@ userRouter.post('/login/:email', async (request, response) => {
             response.status(500).json({ message: "Paire login/pwd incorrect1" });
         }
         else if (results.rowCount == 1) {
-            await compare(pwd, results.rows[0].pwd, (error, results) => {
+            compare(pwd, results.rows[0].pwd, (error, results) => {
                 if (!results) {
                     response.status(401).json({ message: "Paire login/pwd incorrect" })
                 }

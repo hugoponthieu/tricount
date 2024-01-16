@@ -1,4 +1,3 @@
-import { authorization } from '../auth';
 import { bodyParser, pool, express } from '../queries_utils';
 
 const groupeRouter = express.Router();
@@ -27,7 +26,9 @@ groupeRouter.get('/',(request, response) => {
 
 groupeRouter.post('/', (request, response) => {
     const { nom } = request.body
-    pool.query('insert into groupes (nom) values ($1)', [nom], (error, results) => {
+    console.log("test")
+    console.log(nom);
+    pool.query('insert into groupes (nom) values ($1) returning id', [nom], (error, results) => {
         if (error) {
             throw error
         }
