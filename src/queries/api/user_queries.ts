@@ -1,14 +1,13 @@
 import { bodyParser, pool, express } from '../queries_utils';
 import { hash, compare } from 'bcrypt';
 const jwt=require('jsonwebtoken');
-import {authorization} from '../auth'
-import { request, response } from 'express';
+
 
 const userRouter = express.Router();
 
 userRouter.use(bodyParser.json());
 
-userRouter.get('/',authorization, (request, response) => {
+userRouter.get('/', (request, response) => {
     pool.query('SELECT email,nom,prenom,pseudonyme FROM users;', (error, results) => {
 
         if (error) {
@@ -18,7 +17,7 @@ userRouter.get('/',authorization, (request, response) => {
     })
 })
 
-userRouter.get('/auth',authorization,(request,response)=>{ response.status(200).json({ message: "Connecté" })}
+userRouter.get('/auth',(request,response)=>{response.status(200).json({ message: "Connecté" })}
 )
 
 userRouter.get('/current',(request,response)=>{response.status(200).json({user:request.userId})})
