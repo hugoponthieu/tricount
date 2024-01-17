@@ -5,7 +5,7 @@ const depenseRouter = express.Router();
 depenseRouter.use(bodyParser.json());
 
 depenseRouter.get('/:id', (request, response) => {
-    pool.query('select description,montant,utilisateur,date,idgroupe from depenses where idgroupe = $1;', [request.params.id], (error, results) => {
+    pool.query('select * from depenses where idgroupe = $1;', [request.params.id], (error, results) => {
         if (error) {
             response.status(400).json({message: error})
         }

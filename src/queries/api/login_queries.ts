@@ -1,6 +1,7 @@
 import { bodyParser, pool, express } from '../queries_utils';
 import { hash, compare } from 'bcrypt';
 const jwt=require('jsonwebtoken');
+require('dotenv').config()
 
 
 const accessRouter = express.Router();
@@ -8,7 +9,7 @@ accessRouter.use(bodyParser.json());
 
 accessRouter.post('/login/:email', async (request, response) => {
     const { pwd } = request.body;
-    const token = jwt.sign({id:request.params.email},"UNBROCABLE_KEY");
+    const token = jwt.sign({id:request.params.email},process.env.PRIVATE_KEY);
 
     console.log(request.body)
     await pool.query('select pwd from users where "email"=$1', [request.params.email], async (error, results) => {
