@@ -45,7 +45,7 @@ function initSchemaQuery(pwd:string){
         utilisateur varchar(50),
         part float,
         FOREIGN KEY (utilisateur) REFERENCES users(email),
-        FOREIGN KEY (iddepense) REFERENCES depenses(id),
+        FOREIGN KEY (iddepense) REFERENCES depenses(id) ON DELETE CASCADE,
         FOREIGN KEY (idgroupe) REFERENCES groupes(id),
         PRIMARY KEY (iddepense,idgroupe,utilisateur));
     
@@ -58,6 +58,8 @@ function initSchemaQuery(pwd:string){
         PRIMARY KEY (idgroupe,utilisateur)
         );
     
+    
+    
     INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('manon.dupouy@gmail.com','Dupouy','Manon','Manonette','${pwd}');
     INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('hugo.ponthieu@gmail.com','Ponthieu','Hugo','Huguette','${pwd}');
     INSERT INTO users (email, nom, prenom,pseudonyme, pwd) VALUES ('mafam@gmail.com','ma','fam','maf','${pwd}');
@@ -68,19 +70,20 @@ function initSchemaQuery(pwd:string){
     INSERT INTO membres (idgroupe,utilisateur) values (1,'hugo.ponthieu@gmail.com');
     INSERT INTO membres (idgroupe,utilisateur) values (1,'mafam@gmail.com');
     INSERT INTO membres (idgroupe,utilisateur) values (1,'theo@gmail.com');
+    INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('baguette',34.50,'mafam@gmail.com','2023/12/12',1);
+    INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('carotte',34.50,'hugo.ponthieu@gmail.com','2023/12/12',1);
+    INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('banane',100.50,'manon.dupouy@gmail.com','2023/12/12',1);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'hugo.ponthieu@gmail.com',0.33);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'mafam@gmail.com',0.33);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'hugo.ponthieu@gmail.com',0.5);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'hugo.ponthieu@gmail.com',0.5);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'manon.dupouy@gmail.com',0.33);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'manon.dupouy@gmail.com',0.5);
+    INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'manon.dupouy@gmail.com',0.5); 
 
  
    `
-//     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('baguette',34.50,'mafam@gmail.com','2023/12/12',1);
-//     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('carotte',34.50,'hugo.ponthieu@gmail.com','2023/12/12',1);
-//     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('banane',100.50,'manon.dupouy@gmail.com','2023/12/12',1);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'hugo.ponthieu@gmail.com',0.33);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'mafam@gmail.com',0.33);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'hugo.ponthieu@gmail.com',0.5);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'hugo.ponthieu@gmail.com',0.5);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (1,1,'manon.dupouy@gmail.com',0.33);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (2,1,'manon.dupouy@gmail.com',0.5);
-//     INSERT INTO remboursements (iddepense, idgroupe, utilisateur, part) VALUES (3,1,'manon.dupouy@gmail.com',0.5); 
+    
  }
 async function createTables() {
     const q = initSchemaQuery(await hash("azer123",10).then((hash)=>pwd=hash));
