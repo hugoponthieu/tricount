@@ -36,8 +36,12 @@ accessRouter.post('/login/:email', async (request, response) => {
     })
 })
 
-accessRouter.post('/signup/', (request, response) => {
+accessRouter.post('/signup', (request, response) => {
     const { email, nom, prenom, pseudonyme, pwd } = request.body;
+    if(!email|| !nom || !prenom ||!pseudonyme ||!pwd){
+        response.status(400).json({message: "Bad request: can't signup"})
+        return
+    }
    hash(pwd, 10).then((hash) => {
         pool.query('insert into users ( email, nom, prenom,pseudonyme, pwd) values ($1,$2,$3,$4,$5)', [email, nom, prenom, pseudonyme, hash], (error, results) => {
             if (error) {
