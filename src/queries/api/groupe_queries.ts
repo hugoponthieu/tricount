@@ -17,6 +17,10 @@ groupeRouter.get('/', (request, response) => {
 
 groupeRouter.post('/', (request, response) => {
     const { nom } = request.body
+    if(!nom){
+        response.status(400).json({message: "Bad request: can't add groupe"})
+        return
+    }
     pool.query('insert into groupes (nom) values ($1) returning id', [nom], (error, results) => {
         if (error) {
             response.status(400).json({message: error})
