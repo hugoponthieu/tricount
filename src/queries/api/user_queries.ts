@@ -33,7 +33,6 @@ userRouter.delete('/:email', (request, response) => {
 })
 
 userRouter.get('/:email', (request, response) => {
-    console.log(request.params.email);
     pool.query(`select nom,prenom,pseudonyme from users where email=$1;`, [request.params.email], (error, results) => {
         if (error) {
             response.status(400).json({message: error})
