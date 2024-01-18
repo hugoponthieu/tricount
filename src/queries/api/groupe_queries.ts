@@ -4,8 +4,8 @@ const groupeRouter = express.Router();
 
 groupeRouter.use(bodyParser.json());
 
-groupeRouter.get('/:id', (request, response) => {
-    pool.query('select nom from groupes where id = $1', [request.params.id], (error, results) => {
+groupeRouter.get('/', (request, response) => {
+    pool.query('select nom , id from groupes g join membres m on m.idgroupe=g.id where m.utilisateur = $1', [request.userId], (error, results) => {
         if (error) {
             response.status(400).json({message: error})
         }
@@ -14,15 +14,6 @@ groupeRouter.get('/:id', (request, response) => {
     })
 })
 
-groupeRouter.get('/',(request, response) => {
-    pool.query('select * from groupes', (error, results) => {
-        if (error) {
-            response.status(400).json({message: error})
-        }
-        response.status(200).json(results.rows)
-
-    })
-})
 
 groupeRouter.post('/', (request, response) => {
     const { nom } = request.body

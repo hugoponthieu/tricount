@@ -5,7 +5,7 @@ const membreRouter = express.Router();
 membreRouter.use(bodyParser.json());
 
 membreRouter.get('/:id', (request, response) => {
-    pool.query('select utilisateur from membres where idgroupe = $1', [request.params.id], (error, results) => {
+    pool.query('select distinct utilisateur from membres where idgroupe = $1', [request.params.id], (error, results) => {
         if (error) {
             response.status(400).json({message: error})
         }
@@ -16,6 +16,7 @@ membreRouter.get('/:id', (request, response) => {
 
 membreRouter.post('/', (request, response) => {
     const { idgroupe, utilisateur } = request.body
+    console.log(idgroupe,utilisateur)
     if(!idgroupe||!utilisateur){
         response.status(400).json({message: "Bad request: can't add membre"})
         return

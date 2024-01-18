@@ -11,7 +11,6 @@ accessRouter.post('/login/:email', async (request, response) => {
     const { pwd } = request.body;
     const token = jwt.sign({id:request.params.email},process.env.PRIVATE_KEY);
 
-    console.log(request.body)
     await pool.query('select pwd from users where "email"=$1', [request.params.email], async (error, results) => {
 
         if (error) {
@@ -39,8 +38,7 @@ accessRouter.post('/login/:email', async (request, response) => {
 
 accessRouter.post('/signup/', (request, response) => {
     const { email, nom, prenom, pseudonyme, pwd } = request.body;
-    console.log(pwd);
-    hash(pwd, 10).then((hash) => {
+   hash(pwd, 10).then((hash) => {
         pool.query('insert into users ( email, nom, prenom,pseudonyme, pwd) values ($1,$2,$3,$4,$5)', [email, nom, prenom, pseudonyme, hash], (error, results) => {
             if (error) {
                 response.status(401).json({message: error})
