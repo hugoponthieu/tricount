@@ -69,7 +69,6 @@ function initSchemaQuery(pwd:string){
     INSERT INTO membres (idgroupe,utilisateur) values (1,'manon.dupouy@gmail.com');
     INSERT INTO membres (idgroupe,utilisateur) values (1,'hugo.ponthieu@gmail.com');
     INSERT INTO membres (idgroupe,utilisateur) values (1,'mafam@gmail.com');
-
     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('baguette',34.50,'mafam@gmail.com','2023/12/12',1);
     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('carotte',34.50,'hugo.ponthieu@gmail.com','2023/12/12',1);
     INSERT INTO depenses (description,montant,utilisateur,date,idgroupe) VALUES ('banane',100.50,'manon.dupouy@gmail.com','2023/12/12',1);

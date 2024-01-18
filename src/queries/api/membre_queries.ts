@@ -16,18 +16,28 @@ membreRouter.get('/:id', (request, response) => {
 
 membreRouter.post('/', (request, response) => {
     const { idgroupe, utilisateur } = request.body
-    console.log(idgroupe,utilisateur)
     if(!idgroupe||!utilisateur){
         response.status(400).json({message: "Bad request: can't add membre"})
         return
     }
-    pool.query('insert into membres values ($1,$2)', [idgroupe, utilisateur], (error, results) => {
+    pool.query('select email from users where email = $1',[utilisateur], (error, results) => {
         if (error) {
             response.status(400).json({message: error})
+            return
         }
-        response.status(201).json(results.rows)
-
+        if(results.rowCount == 1){        
+            pool.query('insert into membres values ($1,$2)', [idgroupe, utilisateur], (error, results) => {
+            if (error) {
+                response.status(400).json({message: error})
+                return
+            }
+            response.status(201).json(results.rows)
+    
+        })}else{
+            response.status(404).json({message: "Aucun utilisateur"})
+        }
     })
+
 })
 
 membreRouter.delete('/:id', (request, response) => {
